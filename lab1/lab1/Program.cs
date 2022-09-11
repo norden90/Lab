@@ -54,10 +54,24 @@
 
 
 //Mata in en sträng. Spara den strängen.
+//Gå igenom strängen och jämför
+//Om strängen hittar samma siffra, spara strängen i en lista. 
 
+string[] nummer = new string[25];
 string input = string.Empty;
+
 Console.WriteLine("Ange ett stort tal blandat med siffror och bokstäver.");
 input = Console.ReadLine();
 Console.Clear();
-Console.WriteLine($"Du skrev \n {input}");
+
+string temp = string.Empty;
+
+for (int i = 0; i < input.Length; i++)
+{
+    if (input.Equals(i,input.LastIndexOf))
+    {
+        temp += input[i];
+        Console.WriteLine(temp);
+    }
+}
 
