@@ -54,24 +54,108 @@
 
 
 //Mata in en sträng. Spara den strängen.
-//Gå igenom strängen och jämför
-//Om strängen hittar samma siffra, spara strängen i en lista. 
+//Gå igenom strängen och jämför alla chars
+//Om strängen hittar två av samma char, spara strängen i en lista. 
+//eller om den hittar en bokstav. radera strängen och börja om på nästa index. 
 
-string[] nummer = new string[25];
-string input = string.Empty;
 
-Console.WriteLine("Ange ett stort tal blandat med siffror och bokstäver.");
-input = Console.ReadLine();
-Console.Clear();
+//PSEUDOKOD
+//OM jag hittar en likadan sträng, spara strängen i en array eller addera till en summa. 
+//Starta sedan på index +1 för varje loop.
 
-string temp = string.Empty;
+using Microsoft.VisualBasic;
+using Microsoft.VisualBasic.FileIO;
+using System.Security.Cryptography;
 
-for (int i = 0; i < input.Length; i++)
+class lab1
 {
-    if (input.Equals(i,input.LastIndexOf))
+    static void Main(string[] args)
     {
-        temp += input[i];
-        Console.WriteLine(temp);
+        {
+            string[] nummer = new string[1000];
+            string input = string.Empty;
+
+
+            Console.WriteLine("Ange ett stort tal blandat med siffror och bokstäver.");
+            Console.WriteLine("Tryck på Enter för att ta dig in i loopen.");
+
+            input = "234234236867";
+            Console.ReadKey();
+            Console.Clear();
+
+            string temp = string.Empty;
+            string temp2 = string.Empty;
+
+
+            for (int i = 0; i < input.Length; i++)
+            {
+
+                temp+=input[i];
+
+                for (int j = i+1; j < input.Length; j++)
+                {
+                    temp += input[j];
+                    Console.WriteLine(temp);
+
+                    if (input[i] == temp[j])
+                    {
+
+                        nummer[i] = temp;
+                        temp = "";
+                        Console.WriteLine(nummer[0]);
+                        break;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                                
+                }
+            }
+        }
     }
 }
+//class lab1
+//{
+//    static void Main(string[] args)
+//    { 
+
+//            string[] nummer = new string[25];
+//            string input = string.Empty;
+
+
+//            Console.WriteLine("Ange ett stort tal blandat med siffror och bokstäver.");
+//            Console.WriteLine("Tryck på Enter för att ta dig in i loopen.");
+
+//            input = "29535123p48723487597645723645";
+//            Console.ReadKey();
+//            Console.Clear();
+
+//            string temp = string.Empty;
+//            string temp2 = string.Empty;
+
+//            for (int i = 0; i < input.Length; i++)
+//            {
+//                temp += input[i];
+
+//                for (int j = i + 1; j < temp.Length; j++)
+//                {
+//                    temp += temp[j];
+//                    Console.WriteLine(temp);
+//                    if (input[i] == temp[j])
+//                    {
+//                        Console.WriteLine("hittade en match!");
+//                        nummer[i] = temp;
+//                        temp = string.Empty;
+//                    }
+
+//                }
+//            }
+
+//            foreach (var a in nummer)
+//            {
+//                Console.WriteLine(a);
+//            }
+//        }
+//    }
 
