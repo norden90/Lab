@@ -1,4 +1,5 @@
 ﻿//Lab1 – Hitta tal i sträng med tecken
+
 //Skapa en konsollapplikation som tar en textsträng (string) som argument till Main eller uppmanar användaren mata in en sträng i konsollen.
 //Textsträngen ska sedan sökas igenom efter alla delsträngar som är tal som börjar
 //och slutar på samma siffra, utan att start/slutsiffran, eller något annat tecken än
@@ -51,111 +52,66 @@
 //Koden ska vara väl strukturerad och lätt att förstå.
 //Inlämning sker före deadline.
 
-
-
-//Mata in en sträng. Spara den strängen.
-//Gå igenom strängen och jämför alla chars
-//Om strängen hittar två av samma char, spara strängen i en lista. 
-//eller om den hittar en bokstav. radera strängen och börja om på nästa index. 
-
-
-//PSEUDOKOD
-//OM jag hittar en likadan sträng, spara strängen i en array eller addera till en summa. 
-//Starta sedan på index +1 för varje loop.
-
 using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.FileIO;
 using System.Security.Cryptography;
+using System.Text.RegularExpressions;
 
 class lab1
 {
     static void Main(string[] args)
     {
+        string input = string.Empty; //Deklarera en tom input sträng.
+        long sum = 0; //En tom varibel som kan användas senare. 
+
+        Console.WriteLine("Ange ett stort tal blandat med siffror och bokstäver.");
+        input = Console.ReadLine(); //Den inmatade strängen som användaren skirver in. 
+        //input = "29535123p48723487597645723645"; //Exempel text i lab, med förväntat resultat 5836428677242
+
+          
+        for (int i = 0; i < input.Length; i++)  //Två for loopar som där den andra[j] alltid kommer att jämföra med [i].
+                                                //för att kunna hitta de tecken vi letar efter.
         {
-            string[] nummer = new string[1000];
-            string input = string.Empty;
 
-
-            Console.WriteLine("Ange ett stort tal blandat med siffror och bokstäver.");
-            Console.WriteLine("Tryck på Enter för att ta dig in i loopen.");
-
-            input = "234234236867";
-            Console.ReadKey();
-            Console.Clear();
-
-            string temp = string.Empty;
-            string temp2 = string.Empty;
-
-
-            for (int i = 0; i < input.Length; i++)
-            {
-
-                temp+=input[i];
-
-                for (int j = i+1; j < input.Length; j++)
+            for (int j = i + 1; j < input.Length; j++)
+            {          
+                
+                if (input[i] == input[j]) //Olika vilkor när vi ska trigga en händelse. 
+                                          //Om båda input index är samma, triggas koden nedanför. 
                 {
-                    temp += input[j];
-                    Console.WriteLine(temp);
+                    //SubString tar ut en del av en sträng, du deklarerar var du börjar och avslutar den.
+                    //Inom () deklarera var vi ska klippa ur strängen. 
 
-                    if (input[i] == temp[j])
-                    {
+                    string start = input.Substring(0, i);//Startar på index 0 och avslutar på input[i]
+                    string mid = input.Substring(i, j - i + 1);//Börjar på input [i] och klipper till input[j]-input[i] + 1.
+                    string end = input.Substring(start.Length + mid.Length); //Startar på längen av delsträngen start + mid.
+                                                                             //Och klipper resterande sträng.
 
-                        nummer[i] = temp;
-                        temp = "";
-                        Console.WriteLine(nummer[0]);
-                        break;
-                    }
-                    else
-                    {
-                        continue;
-                    }
-                                
+                    long num = long.Parse(mid); //Omvandla den text som har samma start och slutsiffra till en long(siffror).
+                    sum += num; //För varje markerade sträng som vi hittar adderar vi till sum.
+                                //Sum visar sedan summan av alla delsträngar mid. 
+
+
+                    //Här skriver vi ut alla del strängar på en rad, och mid som innerhåller samma start och slutsiffra, den färgmarkeras.
+                    Console.Write(start);
+                    Console.ForegroundColor = ConsoleColor.DarkGreen; //Nästkommande sträng kommer färgläggas. 
+                    Console.Write(mid);
+                    Console.ForegroundColor = ConsoleColor.Gray; //Återgår till standard färgen. 
+                    Console.WriteLine(end);                
+                    break; //När alla delar har gjorts avbryter vi [j] loopen och återgår till loppen [i] och fortsätter leta efter 
+                           //fler matchande strängar.
+                }
+
+                //Annars om Input[i] eller input[j], om char INTE är en siffra. Avbryt loopen. 
+                //Avbryt loopen. Går även att använda Char.IsLetter för att hitta en bokstav.
+                //Om det är en '!' agerar den som en bool. Sant eller falskt statement. 
+                           
+                else if (!char.IsDigit(input[i]) || !char.IsDigit(input[j])) 
+                {                                                   
+                    break;
                 }
             }
         }
+        Console.WriteLine($"\nSumman av alla färgmarkade siffror är: {sum}"); //Skirv ut varibel sum.
     }
 }
-//class lab1
-//{
-//    static void Main(string[] args)
-//    { 
-
-//            string[] nummer = new string[25];
-//            string input = string.Empty;
-
-
-//            Console.WriteLine("Ange ett stort tal blandat med siffror och bokstäver.");
-//            Console.WriteLine("Tryck på Enter för att ta dig in i loopen.");
-
-//            input = "29535123p48723487597645723645";
-//            Console.ReadKey();
-//            Console.Clear();
-
-//            string temp = string.Empty;
-//            string temp2 = string.Empty;
-
-//            for (int i = 0; i < input.Length; i++)
-//            {
-//                temp += input[i];
-
-//                for (int j = i + 1; j < temp.Length; j++)
-//                {
-//                    temp += temp[j];
-//                    Console.WriteLine(temp);
-//                    if (input[i] == temp[j])
-//                    {
-//                        Console.WriteLine("hittade en match!");
-//                        nummer[i] = temp;
-//                        temp = string.Empty;
-//                    }
-
-//                }
-//            }
-
-//            foreach (var a in nummer)
-//            {
-//                Console.WriteLine(a);
-//            }
-//        }
-//    }
-
